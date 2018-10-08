@@ -1,0 +1,20 @@
+FROM alpine:3.7
+
+RUN apk add  \
+    python-dev \
+    py-pip \
+    vim \
+    bash \
+  && pip install pip --upgrade \
+  && pip install virtualenvwrapper
+
+RUN echo \
+  "source /usr/bin/virtualenvwrapper.sh > /dev/null 2>&1" > /root/.bashrc \
+  && /bin/bash -c "source /root/.bashrc; mkvirtualenv app" \
+  && echo "workon app" >> /root/.bashrc
+
+RUN mkdir /app
+WORKDIR /app
+
+CMD /bin/bash
+
